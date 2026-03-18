@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>art.people веб-редактор</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app" id="capture-root">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="tools" role="group" aria-label="Инструменты рисования">
+            <button
+              class="tool-btn is-selected"
+              type="button"
+              data-tool="pencil"
+              aria-label="Карандаш"
+              title="Карандаш"
+            >
+              <img class="tool-icon" src="./assets/icons/pencil.svg" alt="" />
+            </button>
+            <button
+              class="tool-btn"
+              type="button"
+              data-tool="brush"
+              aria-label="Кисть"
+              title="Кисть"
+            >
+              <img class="tool-icon" src="./assets/icons/brush.svg" alt="" />
+            </button>
+            <button
+              class="tool-btn"
+              type="button"
+              data-tool="marker"
+              aria-label="Маркер"
+              title="Маркер"
+            >
+              <img class="tool-icon" src="./assets/icons/marker.svg" alt="" />
+            </button>
+            <button
+              class="tool-btn"
+              type="button"
+              data-tool="spray"
+              aria-label="Спрей"
+              title="Спрей"
+            >
+              <img class="tool-icon" src="./assets/icons/spray.svg" alt="" />
+            </button>
+            <button
+              class="tool-btn"
+              type="button"
+              data-tool="eraser"
+              aria-label="Ластик"
+              title="Ластик"
+            >
+              <img class="tool-icon" src="./assets/icons/eraser.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="palette" role="group" aria-label="Палитра цветов">
+          <button
+            class="swatch is-selected"
+            type="button"
+            data-color="#000000"
+            aria-label="Черный"
+            title="Черный"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            data-color="#9BBF3F"
+            aria-label="Зеленый"
+            title="Зеленый"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            data-color="#A8B5EA"
+            aria-label="Лавандовый"
+            title="Лавандовый"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            data-color="#FFFFFF"
+            aria-label="Белый"
+            title="Белый"
+          ></button>
+          </div>
+        </div>
+
+        <div class="topbar-center">
+          <button class="icon-btn" type="button" id="upload-btn" aria-label="Загрузить изображение" title="Загрузить изображение">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 16V4"></path>
+              <path d="M8 8l4-4 4 4"></path>
+              <path d="M4 20h16"></path>
+            </svg>
+          </button>
+          <input
+            id="upload-input"
+            type="file"
+            accept="image/*"
+            hidden
+          />
+          <button class="save" type="button" id="save-btn">сохранить результат</button>
+        </div>
+
+        <div class="topbar-right">
+          <button class="undo" type="button" id="undo-btn" aria-label="Отменить">
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M9 8l-4 4 4 4"></path>
+            </svg>
+          </button>
+
+          <button class="undo" type="button" id="redo-btn" aria-label="Повторить">
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M15 8l4 4-4 4"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="stage">
+        <section class="models" aria-label="Models canvas">
+          <div class="model" data-model="left" data-garment="0.32,0.19,0.36,0.38">
+            <img
+              class="model-img"
+              src="./assets/867467.2143x3000.jpg"
+              alt="Левая модель"
+              draggable="false"
+              onerror="this.style.display='none'; this.closest('.model').classList.add('is-placeholder')"
+            />
+            <div class="placeholder">
+              Поместите изображение в <code>assets/model-left.png</code>
+            </div>
+            <canvas class="draw" aria-label="Рисование на левой модели"></canvas>
+            <div class="garment-outline" aria-hidden="true"></div>
+          </div>
+
+          <div
+            class="model is-center"
+            data-model="center"
+            data-garment="0.14,0.23,0.72,0.48"
+          >
+            <img
+              class="model-img"
+              src="./assets/752252.2143x3000.jpg"
+              alt="Центральная модель"
+              draggable="false"
+              onerror="this.style.display='none'; this.closest('.model').classList.add('is-placeholder')"
+            />
+            <div class="placeholder">
+              Поместите изображение в <code>assets/model-center.png</code>
+            </div>
+            <canvas class="draw" aria-label="Рисование на центральной модели"></canvas>
+            <div class="garment-outline" aria-hidden="true"></div>
+          </div>
+
+          <div class="model" data-model="right" data-garment="0.30,0.18,0.40,0.40">
+            <img
+              class="model-img"
+              src="./assets/839753.2143x3000.jpg"
+              alt="Правая модель"
+              draggable="false"
+              onerror="this.style.display='none'; this.closest('.model').classList.add('is-placeholder')"
+            />
+            <div class="placeholder">
+              Поместите изображение в <code>assets/model-right.png</code>
+            </div>
+            <canvas class="draw" aria-label="Рисование на правой модели"></canvas>
+            <div class="garment-outline" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <footer class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div class="text">
+              Интерактивный веб‑инструмент, с помощью которого<br />
+              вы можете создать собственную капсульную коллекцию
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div class="text">
+              <ul class="step-list">
+                <li>Выберите цвет</li>
+                <li>Создайте собственный принт</li>
+                <li>Сохраните результат</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div class="text">
+              Опубликуйте свою работу в социальных сетях<br />
+              с хэштегом <span class="tag">#artpeople</span>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="./src/app.js" defer></script>
+  </body>
+</html>
